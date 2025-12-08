@@ -1,0 +1,14 @@
+{% extends 'food/base.html' %}
+{% block content %}
+    <h2>Here's all of the restaurants near you:</h2>
+    {% csrf_token %}
+    <ul>
+        {% for restaurant_for_loop in restaurant_rows_for_looping %}
+            <p>
+                <a href="{{ restaurant_for_loop.get_absolute_url }}"> {{ restaurant_for_loop }}</a>
+            </p>
+        {% empty %}
+            No restaurants yet!
+        {% endfor %}
+    </ul>
+{% endblock %}

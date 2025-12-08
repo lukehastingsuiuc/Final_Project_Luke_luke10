@@ -1,0 +1,27 @@
+{% extends "food/base.html" %}
+
+{% block title %}
+    Restaurant Details
+{% endblock %}
+
+{% block content %}
+    <h2>{{ single_restaurant_var_for_looping }}</h2>
+    <p><strong>Average Rating:</strong> {{ single_restaurant_var_for_looping.avg_rating }} stars</p>
+    <hr>
+    <h3>Reviews</h3>
+     <div class="container">
+        <ul class="navbar-nav">
+            <p class="nav-item"><a class="nav-link" href="{% url 'add-review-url' %}">Make a review!</a></p>
+
+
+        </ul>
+    </div>
+    <ul>
+        {% for r in reviews_var_for_looping %}
+            <b>{{ r.user }} - {{ r.rating }} stars </b>
+            <p>{{ r.content }}</p>
+        {% empty %}
+            <li><em>No reviews</em></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

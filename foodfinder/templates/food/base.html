@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{%  static 'css/main.css' %}?v={{ ts }}">
+    <title>foodfinder</title>
+</head>
+<header class="bg-primary text-white py-3 mb-4">
+    <div class="container d-flex align-items-center">
+        <ul class="nav ms-auto">
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout_urlpattern' %}" method="post" class="ms-auto">
+                        {% csrf_token %}
+                    <button class="btn btn-sm btn-outline-light" type="submit">
+                        Log Out, {{ user.get_username }}
+                    </button>
+                </form>
+            {% else %}
+                <a class="btn btn-sm btn-outline-light ms-auto" href="{% url 'login_urlpattern' %}">Log In</a>
+            {% endif %}
+        </ul>
+    </div>
+</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-4">
+    <div class="container">
+        <ul class="navbar-nav">
+            <p style="font-size:150%;" class="nav-item"><a class="nav-link" href="{% url 'restaurant-url' %}">All Restaurants</a></p>
+            <p style="font-size:150%;" class="nav-item"><a class="nav-link" href="{% url 'my-reviews-url' %}">My Reviews</a></p>
+        </ul>
+    </div>
+</nav>
+<body>
+    <main class="container mb-5">
+        {% block content %}
+            Default content
+        {% endblock %}
+    </main>
+</body>
+</html>
