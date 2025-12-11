@@ -65,7 +65,7 @@ input, select, textarea {
   width: device-width; }
 
 body {
-  -ms-overflow-style: scrollbar; }
+/*  -ms-overflow-style: scrollbar; }*/
 
 @media screen and (max-width: 480px) {
   html, body {
@@ -1245,7 +1245,7 @@ input[type="radio"] + label:before {
       width: 100%; }
 
 a.image {
-  overflow: hidden; }
+/*  overflow: hidden; }*/
   a.image img {
     -moz-transition: -moz-transform 0.2s ease;
     -webkit-transition: -webkit-transform 0.2s ease;
@@ -1722,7 +1722,6 @@ button,
   @media screen and (max-width: 480px) {
     .features article .icon:before {
       font-size: 1.25rem; } }
-
 /* Posts */
 .posts {
   display: -moz-flex;
@@ -1967,7 +1966,7 @@ button,
     left: 26em;
     line-height: 7.5em;
     outline: 0;
-    overflow: hidden;
+/*    overflow: hidden;*/
     position: absolute;
     text-align: center;
     text-indent: -15em;

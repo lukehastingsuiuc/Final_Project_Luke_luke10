@@ -1,6 +1,6 @@
 # IMPORTS
 from . import views
-from .views import FoodBaseView, RestaurantView, RestaurantDetailView, ReviewCreateView
+from .views import FoodBaseView, RestaurantView, RestaurantDetailView, ReviewCreateView, MapView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path("signup/", views.signup_view, name="signup_urlpattern"),
     path("login/", LoginView.as_view(template_name="food/login.html"), name="login_urlpattern"),
     path("logout/", LogoutView.as_view(next_page="login_urlpattern"), name="logout_urlpattern"),
+    path("map/", MapView.as_view(), name="map_url"),
 ]

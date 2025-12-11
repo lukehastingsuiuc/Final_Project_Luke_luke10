@@ -9,7 +9,7 @@
     <ul>
         {% for r in reviews %}
             <li>
-                <a href=""> {{ r.restaurant }} - {{ r.rating }} stars</a>
+                {{ r.restaurant }} - {{ r.rating }} stars
             </li>
         {% empty %}
             <li>No Materials yet</li>

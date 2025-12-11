@@ -1,6 +1,6 @@
 {% extends 'food/base.html' %}
 {% block content %}
-    <h2>Here's all of the restaurants near you:</h2>
+    <h2>Restaurants near you:</h2>
     {% csrf_token %}
     <ul>
         {% for restaurant_for_loop in restaurant_rows_for_looping %}

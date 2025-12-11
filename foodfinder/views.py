@@ -1,6 +1,7 @@
 # IMPORTS
 from urllib import request
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.serializers import serialize
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
@@ -8,10 +9,20 @@ from django.urls import reverse_lazy
 from foodfinder.models import User, Restaurant, Review
 from .forms import ReviewForm
 from .forms_auth import UserSignUpForm
+import requests
+import json
 
 class FoodBaseView(View):
     def get(self, request):
         return render(request,'food/base.html', context={'restaurant_base_html': Restaurant.objects.all()})
+
+class MapView(View):
+    def get(self, request):
+        restaurants = Restaurant.objects.all()
+        data = serialize('json', restaurants)
+        context = {'model_data': data,
+                   }
+        return render(request, 'food/map_view.html', context)
 
 class RestaurantView(ListView):
     def post(self, request, *args, **kwargs):
@@ -60,3 +71,6 @@ def signup_view(request):
     else:
         form = UserSignUpForm()
     return render(request, "food/signup.html", {"form": form})
+
+
+

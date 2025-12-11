@@ -17,6 +17,8 @@ class Restaurant(models.Model):
     restaurant_id = models.AutoField(primary_key=True)
     restaurant_name = models.CharField(max_length=30)
     restaurant_location = models.CharField(max_length=30)
+    restaurant_latitude = models.FloatField()
+    restaurant_longitude = models.FloatField()
     restaurant_price = models.IntegerField()
     avg_rating = models.FloatField()
     def __str__(self):
