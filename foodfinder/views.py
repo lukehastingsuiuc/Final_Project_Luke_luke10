@@ -5,6 +5,8 @@ from django.core.serializers import serialize
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from foodfinder.models import User, Restaurant, Review
 from .forms import ReviewForm
@@ -12,11 +14,11 @@ from .forms_auth import UserSignUpForm
 import requests
 import json
 
-class FoodBaseView(View):
+class FoodBaseView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request,'food/base.html', context={'restaurant_base_html': Restaurant.objects.all()})
 
-class MapView(View):
+class MapView(LoginRequiredMixin, View):
     def get(self, request):
         restaurants = Restaurant.objects.all()
         data = serialize('json', restaurants)
@@ -24,14 +26,14 @@ class MapView(View):
                    }
         return render(request, 'food/map_view.html', context)
 
-class RestaurantView(ListView):
+class RestaurantView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
         return self.get(request, *args, **kwargs)
     model = Restaurant
     template_name = 'food/restaurant_list.html'
     context_object_name = 'restaurant_rows_for_looping'
 
-class RestaurantDetailView(DetailView):
+class RestaurantDetailView(LoginRequiredMixin, DetailView):
     def get(self, request, primary_key):
         restaurant = get_object_or_404(Restaurant, pk=primary_key)
         reviews = restaurant.review_restaurant_name.all()
@@ -44,7 +46,7 @@ class RestaurantDetailView(DetailView):
             },
         )
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = "food/new_review.html"
@@ -54,12 +56,11 @@ class ReviewCreateView(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+@login_required(login_url='login_urlpattern')
 def user_review(request):
     user_reviews = Review.objects.filter(user=request.user)
     context = {'reviews': user_reviews}
     return render(request, 'food/my_reviews.html', context)
-
-
 
 def signup_view(request):
     if request.method == "POST":
