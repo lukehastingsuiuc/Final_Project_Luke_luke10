@@ -5,7 +5,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "luke10$info390mg-mysql-database",
-        "USER": "mohitg2",
+        "USER": "luke10",
         "PASSWORD": "graingerlibrary",
         "HOST": "luke10.mysql.pythonanywhere-services.com",
         "PORT": "3306",
